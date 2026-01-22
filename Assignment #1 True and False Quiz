@@ -1,0 +1,194 @@
+/*
+ELTR 252 Assignment #1 
+- Used pins 3, 4, 5 for outputs
+- Use pins 8, 9 for inputs
+- might try and implement a button debounce
+* Make sure to write variables as full words, rather than abreviations
+*/
+const int led1 = 3; 
+const int led2 = 4; 
+const int led3 = 5;
+const int btnTrue = 8; // true button
+const int btnFalse = 9; // false button 
+const int questionDelay = 100;
+const int typeDelay = 1500;
+
+int btnTrueState = 0;
+int btnFalseState = 0;
+
+int whileLoop = 0;
+
+int score = 0;
+int i = 0;
+
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  pinMode (led1, OUTPUT);
+  pinMode (led2, OUTPUT);
+  pinMode (led3, OUTPUT);
+  pinMode (btnTrue, INPUT);
+  pinMode (btnFalse, INPUT);
+
+  digitalWrite(led1, LOW);
+  digitalWrite(led2, LOW);
+  digitalWrite(led3, LOW);
+
+
+  
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+  whileLoop = 0;
+  Serial.println("Question #1");
+  delay(typeDelay);
+ 
+  Serial.println("In 1883, the volcano Krakatoa errupted.");
+  delay(typeDelay);
+  Serial.println("It was so loud it resulted in the first recorded death by sound.");
+  delay(typeDelay);
+  Serial.println("Is this true or false?");
+
+  while(whileLoop == 0){
+    btnTrueState = digitalRead(btnTrue);
+    btnFalseState = digitalRead(btnFalse);
+    if(btnTrueState == HIGH){ // This is true
+      Serial.println("True!");
+      digitalWrite(led1, HIGH);
+      delay(questionDelay);
+      score++;
+      whileLoop = 1;
+     
+     // Serial.println("DEBUG: WhileLoop now 1");
+      
+    }
+    if(btnFalseState == HIGH){
+      Serial.println("That is incorrect :'( ");
+      delay(questionDelay);
+      digitalWrite(led1, LOW);
+      whileLoop = 1;
+    }
+  }
+
+
+  Serial.println("Question #2");
+  delay(typeDelay);
+ 
+  Serial.println("In 1887, after Abraham Lincoln's presendency,");
+  delay(typeDelay);
+  Serial.println("it was found that he actually lost his election and should never have been president.");
+  delay(typeDelay);
+  Serial.println("Is this true or false?");
+whileLoop = 0;
+  while(whileLoop == 0){
+    btnTrueState = digitalRead(btnTrue);
+    btnFalseState = digitalRead(btnFalse);
+    if(btnFalseState == HIGH){ // This is true
+      Serial.println("True!");
+    
+      digitalWrite(led2, HIGH);
+      delay(questionDelay);
+       score++;
+      whileLoop = 1;
+      //Serial.println("DEBUG: WhileLoop now 1");
+      
+    }
+    if(btnTrueState == HIGH){
+      Serial.println("That is incorrect :'( ");
+      digitalWrite(led2, LOW);
+      delay(questionDelay);
+      whileLoop = 1;
+    }
+  }
+  delay(1000);
+
+
+  Serial.println("Question #3");
+  delay(typeDelay);
+ 
+  Serial.println("In 1905, the Cullinan Diamond was found in South Africa.");
+  delay(typeDelay);
+  Serial.println("With an impressive 3106-carots, it the worlds largest diamond!");
+  delay(typeDelay);
+  Serial.println("Is this true or false?");
+whileLoop = 0;
+  while(whileLoop == 0){
+    btnTrueState = digitalRead(btnTrue);
+    btnFalseState = digitalRead(btnFalse);
+    if(btnTrueState == HIGH){ // This is true
+      Serial.println("True!");
+      digitalWrite(led3, HIGH);
+      delay(questionDelay);
+       score++;
+      whileLoop = 1;
+      //Serial.println("DEBUG: WhileLoop now 1");
+      
+    }
+    if(btnFalseState == HIGH){
+      Serial.println("That is incorrect :'( ");
+      digitalWrite(led3, LOW);
+      delay(questionDelay);
+      whileLoop = 1;
+    }
+  } 
+  if(score == 0){
+    Serial.print(" Aww, you got 0/3. Try again next time!");
+  }
+  if(score == 1){
+    Serial.print(" You got 1/3. Better than nothing!");
+  }
+  if(score == 2){
+    Serial.print(" 2/3. Not too bad!");
+  }
+  if(score == 3){
+    Serial.print("3/3 Fantastic!");
+    int j = 0;
+    for(j=0; j<3; j++){
+      digitalWrite(led1, LOW);
+      digitalWrite(led2, LOW);
+      digitalWrite(led3, LOW);
+      delay(500);
+      digitalWrite(led1, HIGH);
+      digitalWrite(led2, HIGH);
+      digitalWrite(led3, HIGH);
+      delay(500);
+    }
+    
+  }
+//Serial.println("DEBUG: Reached end of program");
+delay(10000);
+digitalWrite(led1, LOW);
+digitalWrite(led2, LOW);
+digitalWrite(led3, LOW);
+} 
+// digitalWrite(led1, HIGH);
+// digitalWrite(led2, HIGH);
+// digitalWrite(led3, HIGH);
+// delay(500);
+// digitalWrite(led1, LOW);
+// digitalWrite(led2, LOW);
+// digitalWrite(led3, LOW);
+// delay(500);
+
+// btn1State = digitalRead(btn1);
+// btn2State = digitalRead(btn2);
+// //Serial.println("DEBUG: Program has looped");
+// if(btn1State == 1){
+//   Serial.println("Button 1 is being pressed");
+// }
+// if(btn2State == 1){
+//   Serial.println("Button 2 is being pressed");
+// }
+//btn1State == 0;
+//btn2State == 0;
+
+// Question 1:
+
+
+    
+
+
